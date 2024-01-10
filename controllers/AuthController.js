@@ -1,6 +1,10 @@
 const RegisterModel = require('../models/registerModel')
 
 const login = (req,res) => {
+    
+    if(res.locals.users){
+        return res.redirect('/dashboard');
+    }
     return res.render('index');
 }
 
@@ -51,6 +55,17 @@ const dash = (req,res) => {
     return res.render('dashboard')
 }
 
+//logout
+const logout = (req,res) => {
+        req.logout((err)=>{
+            if(err){
+                console.log("user not logout");
+                return false;
+            }
+            return res.redirect('/');
+        })
+}
+
 module.exports = {
-    login,register,registerUser,loginUser,dash
+    login,register,registerUser,loginUser,dash,logout
 };
